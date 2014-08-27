@@ -1,6 +1,7 @@
 
 body, input, textarea {
-  font-family: Ariel, "", sans-serif;
+  /* font-family: Ariel, "", sans-serif; */
+  font-family: Andale Mono, monospace;
 }
 
 #main p {
