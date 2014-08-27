@@ -24,7 +24,8 @@ flip = (word) ->
 
 $ ->
 
-  word = $(this).val().toUpperCase()
+  $("#word_input").focus().select()
+
   flip("MOM")
   $('#word_input').on 'input', () ->
     word = $(this).val().toUpperCase()

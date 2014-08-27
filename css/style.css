@@ -17,6 +17,11 @@ body, input, textarea {
   -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
   transform: rotate(180deg);
 }
+.head {
+  text-align:right;
+  padding-top:0;
+  margin-top:0;
+}
 
 .word {
   text-align:center;
