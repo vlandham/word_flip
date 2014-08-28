@@ -1,5 +1,25 @@
 
 
+MAPPING = {
+  "H" : "H",
+  "I" : "I",
+  "O" : "O",
+  "M" : "W",
+  "N" : "N",
+  "S" : "S",
+  "W" : "M",
+  "X" : "X",
+  "Z" : "Z",
+  " " : " "
+}
+
+translate_word = (word) ->
+  word_array = word.split('').reverse()
+  new_array = word_array.map (d) -> if MAPPING[d] then MAPPING[d] else "*"
+  new_array.join("")
+
+
+
 drawText = (context, canvas, word) ->
   context.clearRect(0, 0, canvas.width, canvas.height)
   context.fillStyle = "#777"
@@ -21,6 +41,32 @@ drawText = (context, canvas, word) ->
 flip = (word) ->
   $("#word").text(word)
   $("#fword").text(word)
+  translated = translate_word(word)
+  if translated.indexOf("*") == -1
+    $(lookup_word).html("<a target='_blank' href='https://www.google.com/search?q=#{word}'>lookup #{word}</a>")
+    $(lookup_flipped).html("<a target='_blank' href='https://www.google.com/search?q=#{translated}'>lookup #{translated}</a>")
+  else
+    $(lookup_word).html("")
+    $(lookup_flipped).html("")
+
+
+
+ready = (error, data) ->
+
+  data = data.filter (d) -> d.original.length > 1
+  data.sort (a,b) -> b.original.length - a.original.length
+ 
+  words = d3.select(".flippable_words").selectAll(".dword")
+    .data(data)
+  words.enter()
+    .append("p")
+    .attr("class", "dword")
+    .text((d) -> d.original)
+    .on "click", (d) ->
+       $("#word_input").val(d.original)
+       flip(d.original)
+       $('html, body').animate({ scrollTop: 0 }, 0);
+    # .each((d) -> console.log(d.original))
 
 $ ->
 
@@ -30,3 +76,5 @@ $ ->
   $('#word_input').on 'input', () ->
     word = $(this).val().toUpperCase()
     flip(word)
+
+  d3.csv("data/flipped_words.csv", ready)

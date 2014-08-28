@@ -28,3 +28,12 @@ body, input, textarea {
   text-align:center;
   font-size: 3.4em;
 }
+
+.dword {
+  text-align:center;
+  cursor: pointer;
+}
+
+#lookup_flipped {
+  text-align: right;
+}
