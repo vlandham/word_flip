@@ -9,6 +9,11 @@ body, input, textarea {
   line-height: 50px;
 }
 
+#main p.small {
+  font-size: 15px;
+  line-height: 20px;
+}
+
 #header {
   height: 190px;
 }
