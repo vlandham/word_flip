@@ -9,8 +9,13 @@ body, input, textarea {
   line-height: 50px;
 }
 
+#main p.small {
+  font-size: 15px;
+  line-height: 20px;
+}
+
 #header {
-  height: 120px;
+  height: 160px;
 }
 
 .flipped {
