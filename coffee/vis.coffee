@@ -51,9 +51,20 @@ flip = (word) ->
 
 
 
-ready = (error, data) ->
+ready = (error, data, data2, data3) ->
+  
+  all_data = data.concat(data2)
+  # all_data = all_data.concat(data3)
+  console.log(all_data)
+  ddd = {}
+  all_data = all_data.filter (d) -> 
+    if ddd[d.original]
+      return false
+    else
+      ddd[d.original] = 1
+      return true
+  data = all_data.filter (d) -> d.original.length > 1
 
-  data = data.filter (d) -> d.original.length > 1
   data.sort (a,b) -> b.original.length - a.original.length
  
   words = d3.select(".flippable_words").selectAll(".dword")
@@ -77,4 +88,8 @@ $ ->
     word = $(this).val().toUpperCase()
     flip(word)
 
-  d3.csv("data/flipped_words.csv", ready)
+  queue()
+    .defer(d3.csv, "data/flipped_words.csv")
+    .defer(d3.csv, "data/flipped_words_word_list.csv")
+    # .defer(d3.csv, "data/flipped_words_count_1_2.csv")
+    .await(ready)
